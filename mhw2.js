@@ -87,8 +87,36 @@ function onClick(){
 
 }
 
+function loadMoreContent(){
+    let feed = document.querySelector('#feed');
+    let docToLoad = 1;
+    console.log("load");
+    for (let i = 0; i < docToLoad; i++) {
+        let item = document.createElement('article');
+        let item_content = document.createElement('div');
+        item.classList.add('item');
+        item_content.classList.add('insert');
+        item.appendChild(item_content);
+        feed.appendChild(item);
+    }
+}
+
+// Funzione per controllare se l'utente ha raggiunto il fondo della pagina
+function checkScroll() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+
+    // Se l'utente ha raggiunto il fondo della pagina
+    if (scrollTop + windowHeight >= bodyHeight) {
+        loadMoreContent();
+    }
+}
+
 let previous_head = document.querySelector('#previous-head');
 previous_head.addEventListener("click", onClick);
 
 let next_head = document.querySelector('#next-head');
 next_head.addEventListener("click", onClick);
+
+window.addEventListener("scroll", checkScroll);
