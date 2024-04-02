@@ -1,9 +1,11 @@
+let feedContent = Array.from(document.querySelectorAll('#feed article'));
+
 function onClick(){
     console.log('Next head');
 
     let button_previous = document.querySelector('#previous-head');
     let button_next = document.querySelector('#next-head');
-
+    
     let item1 = document.querySelector('#item1');
     let title1 = document.querySelector('#item1 .overlay .title');
     let description1 = document.querySelector('#item1 .overlay .description');
@@ -90,13 +92,14 @@ function onClick(){
 function loadMoreContent(){
     let feed = document.querySelector('#feed');
     let docToLoad = 1;
-    console.log("load");
     for (let i = 0; i < docToLoad; i++) {
         let item = document.createElement('article');
         let item_content = document.createElement('div');
         item.classList.add('item');
+        item.dataset.index = feedContent.length + 1;
         item_content.classList.add('insert');
         item.appendChild(item_content);
+        feedContent.push(item);
         feed.appendChild(item);
     }
 }
