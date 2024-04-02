@@ -28,6 +28,10 @@ body{
     justify-content: flex-end;
 }
 
+.align-center{
+    align-items: center;
+}
+
 .hidden{
     display: none;
 }
@@ -75,22 +79,32 @@ header{
     align-items: center;
 }
 #searchbar{
+    /*
+    background-image: url(img/lente.png);
+    background-repeat: no-repeat;
+    background-position: 30px 12px;
+    */
     width: 560px;
     height: 40px;
     background-color: #1a282d;
-    border-radius: 50px;
     margin-right: -125px;
-    color: #526368;
+    color: #F2F4F5;
+    font-size: 14px;
     align-items: center;
-
+    border: none;
+    border-radius: 50px;
 }
-#searchbar .image{
+#searchbar:focus{
+    outline: none;
+}
+#search .image{
     background-image: url(img/lente.png);
     background-size: cover;
     width: 18px;
     height: 18px;
     margin-left: 20px;
-    margin-right: 7px;
+    margin-right: -20px;
+    z-index: 1;
 }
 #setting{
     color: white;
@@ -195,7 +209,7 @@ header{
     header #search #searchbar{
         width: 100%;
         margin-left: -50px;
-        margin-right: -100px;
+        margin-right: -50px;
     }    
 }
 
@@ -265,6 +279,11 @@ nav{
     margin-top: 0.75em;
     margin-bottom: 0.75em;
 }
+
+.item-nav{
+    justify-content: space-between;
+}
+
 .item-nav div{
     align-items: center;
     margin-left: 15px;
@@ -274,6 +293,19 @@ nav{
     font-size: 0.75rem;
     line-height: 1rem;
     letter-spacing: 0.1em;
+}
+.item-nav .recent{
+    padding: 5px 0px;
+    margin-left: 0;
+}
+.item-nav .recent .text{
+    color: white;
+    font-size: 0.875rem;
+}
+.item-nav .recent img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
 }
 .item-nav:hover{
     background-color: #131f23;
@@ -445,6 +477,7 @@ nav{
 #sidebar{
     width: 316px;
     height: 394px;
+    overflow: scroll;
 
     margin-top: 15px;
     margin-left: 10px;
@@ -472,6 +505,7 @@ nav{
 #popular-communities-list{
     margin-top: 15px;
 }
+
 #popular-communities-list .item .container{
     height: 56px;
     width: 284px;
@@ -600,4 +634,23 @@ nav{
         display: none;
     }
     
+}
+
+.no-scroll{
+    overflow: hidden;
+}
+
+.modal-view{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

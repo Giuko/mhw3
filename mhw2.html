@@ -17,10 +17,9 @@
             <div id = "navbar-reddit"></div>
         </div>
         <div class="flex flex-center" id="search">
-            <div class="flex flex-start" id="searchbar">
-                <div class="image"></div>
-                <div class="item">Search Reddit</div>
-            </div>
+
+            <input class="flex flex-start" type="text" id="searchbar" src="img/lente.png" placeholder="Search Reddit">
+            </input>
         </div>
         <div class="flex" id="setting">
             <div class="flex flex-center" id = "qr">
@@ -45,18 +44,39 @@
                     <div class="item">Popular</div>
                 </div>
                 <hr class="border-neutral-weak">
-                <div class="item-nav">
+                <div class="item-nav flex" data-navtype="recent" data-click="0">
                     <div class="flex">RECENT</div>
+                    <div class="flex door">V</div>
+                </div>
+                <div class="item-nav">
+                    <div class="hidden align-center flex-start recent">    
+                        <div class="image"><img src="img/example_profile_01.png"></div>
+                        <div class="text flex align-center flex-start">r/AmazonStuff</div>
+                    </div>
+                </div>
+                <div class="item-nav">
+                    <div class="hidden align-center flex-start recent">    
+                        <div class="image"><img src="img/example_profile_02.png"></div>
+                        <div class="text flex align-center flex-start">r/UnictMember</div>
+                    </div>
+                </div>
+                <div class="item-nav">
+                    <div class="hidden align-center flex-start recent">    
+                        <div class="image flex align-center"><img src="img/example_profile_03.png"></div>
+                        <div class="text flex align-center flex-start">r/OpenAI</div>
+                    </div>
                 </div>
                 <hr class="border-neutral-weak">
-                <div class="item-nav">
+                <div class="item-nav flex" data-navtype="topics" data-click="0">
                     <div class="flex">TOPICS</div>
+                    <div class="flex door">V</div>
                 </div>
                 <hr class="border-neutral-weak">
-                <div class="item-nav">
+                <div class="item-nav flex" data-navtype="resources" data-click="0">
                     <div class="flex">RESOURCES</div>
+                    <div class="flex door">V</div>
                 </div>
-            </div>
+            </div> 
         </nav>
         <div class="container flex flex-center">
             <div class="subcontainer">
@@ -74,7 +94,7 @@
                             </div>
                         </div>
                     </article>
-                    <article class="item" id="item2" data-index="item2">
+                    <article class="item" id="item2" data-index=2>
                         <div class="overlay flex flex-end">
                             <div class="title">Netflix</div>
                             <div class="description">Netflix new series</div>
@@ -86,7 +106,7 @@
                             </div>
                         </div>
                     </article>
-                    <article class="item" id="item3" data-index="item3">
+                    <article class="item" id="item3" data-index=3>
                         <div class="overlay flex flex-end">
                             <div class="title">Twitter</div>
                             <div class="description">Twitter new CEO Elon Musk...</div>
@@ -98,7 +118,7 @@
                             </div>
                         </div>
                     </article>
-                    <article class="item" id="item4" data-index="item4">
+                    <article class="item" id="item4" data-index=4>
                         <div class="overlay flex flex-end">
                             <button class="flex flex-center" id="next-head" data-buttontype="next-head">></button>
                             <div class="title">Elon Musk vs Sam Altman</div>
@@ -181,7 +201,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-start" id="more"><div class="text flex flex-center">See more</div></div>
+                        <div class="flex flex-start" id="more" data-mode="more"><div class="text flex flex-center">See more</div></div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,9 @@
 let feedContent = Array.from(document.querySelectorAll('#feed article'));
+let headContent = Array.from(document.querySelectorAll('#head .item'));
+let sidebar = document.querySelector('#popular-communities-list');
+
+let recentContent = Array.from(document.querySelectorAll('.subnav .recent'));
+
 const HEAD_ARTICLE = [
     "url(img/head_article_01.jpeg)",
     "url(img/head_article_02.jpeg)",
@@ -13,6 +18,38 @@ const HEAD_ARTICLE_ICON = [
     "img/example_profile_03.png",
     "img/example_profile_08.png"
 ]; 
+
+const SIDEBAR_ICON = [
+    "img/example_profile_01.png",
+    "img/example_profile_02.png",
+    "img/example_profile_03.png",
+    "img/example_profile_04.png",
+    "img/example_profile_05.png",
+    "img/example_profile_06.png",
+    "img/example_profile_07.png",
+    "img/example_profile_08.png"
+];
+const SIDEBAR_NAME = [
+    "r/AmazonStuff",
+    "r/UnictMember",
+    "r/OpenAI",
+    "r/DBZ",
+    "r/NetflixSeries",
+    "r/TwitterSubs",
+    "r/MeTube",
+    "r/Grifone"
+];
+const SIDEBAR_MEMBERS = [
+    "100.000 members",
+    "500 members",
+    "100.000 members",
+    "800 members",
+    "100.000 members",
+    "25.000 members",
+    "75.000 members",
+    "12.000 members"
+];
+
 function onClick(){
     let button_previous = document.querySelector('#previous-head');
     let button_next = document.querySelector('#next-head');
@@ -127,10 +164,129 @@ function checkScroll() {
     }
 }
 
+function onCLickMore(event){
+    let t = event.currentTarget;
+    let div = document.createElement('div');
+
+    div.classList.add('text');
+    div.classList.add('flex');
+    div.classList.add('flex-center');
+    
+    t.innerHTML = '';
+    sidebar.innerHTML = '';
+
+    if(t.dataset.mode === 'more'){
+        document.querySelector('#sidebar').style.height = '600px';
+        t.dataset.mode = 'less';
+        div.textContent = 'See less';
+
+        for(let i = 0; i < SIDEBAR_ICON.length; i++){
+            let item = document.createElement('div');
+            item.classList.add('item');
+            let container = document.createElement('div');
+            container.classList.add('container');
+            container.classList.add('flex');
+            let content = document.createElement('div');
+            content.classList.add('content');
+            content.classList.add('flex');
+            let image = document.createElement('div');
+            image.classList.add('image');
+            let img = document.createElement('img');
+            img.src = SIDEBAR_ICON[i];
+            let text = document.createElement('div');
+            text.classList.add('text');
+            text.classList.add('flex');
+            let name = document.createElement('div');
+            name.classList.add('name');
+            name.textContent = SIDEBAR_NAME[i];
+            let members = document.createElement('div');
+            members.classList.add('members');
+            members.textContent = SIDEBAR_MEMBERS[i];
+            text.appendChild(name);
+            text.appendChild(members);
+            image.appendChild(img);
+            content.appendChild(image);
+            content.appendChild(text);
+            container.appendChild(content);
+            item.appendChild(container);
+            sidebar.appendChild(item);
+        }
+
+        t.appendChild(div);
+    }else{
+        document.querySelector('#sidebar').style.height = '394px';
+        t.dataset.mode = 'more';
+        div.textContent = 'See more';
+
+        for(let i = 0; i < 4; i++){
+            let item = document.createElement('div');
+            item.classList.add('item');
+            let container = document.createElement('div');
+            container.classList.add('container');
+            container.classList.add('flex');
+            let content = document.createElement('div');
+            content.classList.add('content');
+            content.classList.add('flex');
+            let image = document.createElement('div');
+            image.classList.add('image');
+            let img = document.createElement('img');
+            img.src = SIDEBAR_ICON[i];
+            let text = document.createElement('div');
+            text.classList.add('text');
+            text.classList.add('flex');
+            let name = document.createElement('div');
+            name.classList.add('name');
+            name.textContent = SIDEBAR_NAME[i];
+            let members = document.createElement('div');
+            members.classList.add('members');
+            members.textContent = SIDEBAR_MEMBERS[i];
+            text.appendChild(name);
+            text.appendChild(members);
+            image.appendChild(img);
+            content.appendChild(image);
+            content.appendChild(text);
+            container.appendChild(content);
+            item.appendChild(container);
+            sidebar.appendChild(item);
+        }
+        t.appendChild(div);
+    }
+}
+
 let previous_head = document.querySelector('#previous-head');
 previous_head.addEventListener("click", onClick);
 
 let next_head = document.querySelector('#next-head');
 next_head.addEventListener("click", onClick);
 
+let more = document.querySelector('#more');
+more.addEventListener("click", onCLickMore)
+
 window.addEventListener("scroll", checkScroll);
+
+function recentClick(e){
+    let r = e.currentTarget;
+    let door = document.querySelector('[data-navtype = recent] .door');
+    if(parseInt(r.dataset.click) === 0){
+        r.dataset.click = 1;
+        door.textContent = '^';
+        for(let recent of recentContent){
+            recent.classList.add('flex');
+            recent.classList.remove('hidden');
+        }
+    }else{
+        r.dataset.click = 0;
+        door.textContent = 'V';
+        for(let recent of recentContent){
+            recent.classList.remove('flex');
+            recent.classList.add('hidden');
+        }
+    }
+}
+
+let recent = document.querySelector('[data-navtype = recent]');
+recent.addEventListener('click', recentClick);
+
+let topics = document.querySelector('[data-navtype = topics]');
+let resources = document.querySelector('[data-navtype = resources]');
+
