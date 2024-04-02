@@ -1,8 +1,19 @@
 let feedContent = Array.from(document.querySelectorAll('#feed article'));
-
+const HEAD_ARTICLE = [
+    "url(img/head_article_01.jpeg)",
+    "url(img/head_article_02.jpeg)",
+    "url(img/head_article_03.jpeg)",
+    "url(img/head_article_04.jpeg)",
+    "url(img/head_article_05.jpeg)"
+]; 
+const HEAD_ARTICLE_ICON = [
+    "img/example_profile_04.png",
+    "img/example_profile_05.png",
+    "img/example_profile_06.png",
+    "img/example_profile_03.png",
+    "img/example_profile_08.png"
+]; 
 function onClick(){
-    console.log('Next head');
-
     let button_previous = document.querySelector('#previous-head');
     let button_next = document.querySelector('#next-head');
     
@@ -35,55 +46,55 @@ function onClick(){
         button_previous.classList.remove('hidden');
         button_next.classList.add('hidden');
         
-        item1.style.backgroundImage = "url(img/head_article_02.jpeg)"
+        item1.style.backgroundImage = HEAD_ARTICLE[1];
         title1.textContent = title2.textContent;
         description1.textContent = description2.textContent;
-        icon1.src = icon2.src;
+        icon1.src = HEAD_ARTICLE_ICON[1];
         group1.textContent = group2.textContent;
 
-        item2.style.backgroundImage = "url(img/head_article_03.jpeg)"
+        item2.style.backgroundImage = HEAD_ARTICLE[2];
         title2.textContent = title3.textContent;
         description2.textContent = description3.textContent;
-        icon2.src = icon3.src;
+        icon2.src = HEAD_ARTICLE_ICON[2];
         group2.textContent = group3.textContent;
 
-        item3.style.backgroundImage = "url(img/head_article_04.jpeg)"
+        item3.style.backgroundImage = HEAD_ARTICLE[3];
         title3.textContent = title4.textContent;
         description3.textContent = description4.textContent;
-        icon3.src = icon4.src;
+        icon3.src = HEAD_ARTICLE_ICON[3];
         group3.textContent = group4.textContent;
 
-        item4.style.backgroundImage = "url(img/head_article_05.jpeg)"
+        item4.style.backgroundImage = HEAD_ARTICLE[4];
         title4.textContent = "Griffin";
         description4.textContent = 'Griffin cancelled';
-        icon4.src = "img/example_profile_08.png";
+        icon4.src = HEAD_ARTICLE_ICON[4];
         group4.textContent = 'r/Grifone';
     }else{        
         button_previous.classList.add('hidden');
         button_next.classList.remove('hidden');
 
-        item4.style.backgroundImage = "url(img/head_article_04.jpeg)"
+        item4.style.backgroundImage = HEAD_ARTICLE[3];
         title4.textContent = title3.textContent;
         description4.textContent = description3.textContent;
-        icon4.src = icon3.src;
+        icon4.src = HEAD_ARTICLE_ICON[3];
         group4.textContent = group3.textContent;
 
-        item3.style.backgroundImage = "url(img/head_article_03.jpeg)"
+        item3.style.backgroundImage = HEAD_ARTICLE[2];
         title3.textContent = title2.textContent;
         description3.textContent = description2.textContent;
-        icon3.src = icon2.src;
+        icon3.src = HEAD_ARTICLE_ICON[2];
         group3.textContent = group2.textContent;
 
-        item2.style.backgroundImage = "url(img/head_article_02.jpeg)"
+        item2.style.backgroundImage = HEAD_ARTICLE[1];
         title2.textContent = title1.textContent;
         description2.textContent = description1.textContent;
-        icon2.src = icon1.src;
+        icon2.src = HEAD_ARTICLE_ICON[1];
         group2.textContent = group1.textContent;
 
-        item1.style.backgroundImage = "url(img/head_article_01.jpeg)"
+        item1.style.backgroundImage = HEAD_ARTICLE[0];
         title1.textContent = "Akira Toriyama Dies";
         description1.textContent = 'Dragon Ball creator dies...';
-        icon1.src = 'img/example_profile_04.png';
+        icon1.src = HEAD_ARTICLE_ICON[0];
         group1.textContent = 'r/AkiraToryamaMemories';
     }
 
