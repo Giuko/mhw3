@@ -329,43 +329,32 @@ nav{
     background-image: url(img/head_article_04.jpeg);
     background-size: cover;
 }
+#next-head, #previous-head{
+
+    border: 0px;
+    border-radius: 50%;
+    
+    position: absolute;
+    top: 75px;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px
+}
+
 
 #next-head{
-    appearance: none;
-    border: 0px;
-    border-radius: 50%;
-    
-    position: absolute;
-    top: 75px;
-    left: 200px;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 50px;
-    height: 50px;
-    
+    left: 200px;    
 }
 
-#previous-head{
-    appearance: none;
-    border: 0px;
-    border-radius: 50%;
-    
-    position: absolute;
-    top: 75px;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 50px;
-    height: 50px;
-    
-}
 #next-head:hover, #previous-head:hover{
     background-color: rgba(0, 0, 0, 0.9);
+}
+#next-head:active, #previous-head:active{
+    background-color: rgba(20, 20, 20, 0.6);
 }
 
 .community{
@@ -473,15 +462,15 @@ nav{
     width: 100%;
 }
 
-
 #sidebar{
     width: 316px;
     height: 394px;
-    overflow: scroll;
 
     margin-top: 15px;
     margin-left: 10px;
     margin-right: 16px;
+
+    overflow: scroll;
 
     border-radius: 8px;
     background-color: #04090a;

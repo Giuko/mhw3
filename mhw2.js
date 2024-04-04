@@ -1,6 +1,6 @@
 let feedContent = Array.from(document.querySelectorAll('#feed article'));
 let headContent = Array.from(document.querySelectorAll('#head .item'));
-let sidebar = document.querySelector('#popular-communities-list');
+let sidebarList = document.querySelector('#popular-communities-list');
 
 let recentContent = Array.from(document.querySelectorAll('.subnav .recent'));
 
@@ -158,6 +158,13 @@ function checkScroll() {
     const windowHeight = window.innerHeight;
     const bodyHeight = document.body.offsetHeight;
 
+    if(scrollTop <  235){
+        sidebar.style.marginTop = 15;        
+    }
+    if(scrollTop >= 235){
+        sidebar.style.marginTop = scrollTop-220;
+    }
+
     // Se l'utente ha raggiunto il fondo della pagina
     if (scrollTop + windowHeight >= bodyHeight) {
         loadMoreContent();
@@ -173,7 +180,7 @@ function onCLickMore(event){
     div.classList.add('flex-center');
     
     t.innerHTML = '';
-    sidebar.innerHTML = '';
+    sidebarList.innerHTML = '';
 
     if(t.dataset.mode === 'more'){
         document.querySelector('#sidebar').style.height = '600px';
@@ -209,7 +216,7 @@ function onCLickMore(event){
             content.appendChild(text);
             container.appendChild(content);
             item.appendChild(container);
-            sidebar.appendChild(item);
+            sidebarList.appendChild(item);
         }
 
         t.appendChild(div);
@@ -247,7 +254,7 @@ function onCLickMore(event){
             content.appendChild(text);
             container.appendChild(content);
             item.appendChild(container);
-            sidebar.appendChild(item);
+            sidebarList.appendChild(item);
         }
         t.appendChild(div);
     }
