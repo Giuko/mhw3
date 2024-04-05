@@ -462,6 +462,11 @@ nav{
     width: 100%;
 }
 
+.sticky{
+    position: sticky;
+    top: 75px;
+}
+
 #sidebar{
     width: 316px;
     height: 394px;
@@ -470,7 +475,8 @@ nav{
     margin-left: 10px;
     margin-right: 16px;
 
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     border-radius: 8px;
     background-color: #04090a;
@@ -531,6 +537,7 @@ nav{
 
 #more{
     margin-top: 7px;
+    margin-bottom: 20px;
     margin-left: 17px;
     font-size: var(--sidebar-members-font-size);
     color: white;

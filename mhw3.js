@@ -1,138 +1,52 @@
 let feedContent = Array.from(document.querySelectorAll('#feed article'));
 let headContent = Array.from(document.querySelectorAll('#head .item'));
-let sidebarList = document.querySelector('#popular-communities-list');
+const sidebarList = document.querySelector('#popular-communities-list');
+const sidebar = document.querySelector('#sidebar');
 
 let recentContent = Array.from(document.querySelectorAll('.subnav .recent'));
+let js_object;
 
-const HEAD_ARTICLE = [
-    "url(img/head_article_01.jpeg)",
-    "url(img/head_article_02.jpeg)",
-    "url(img/head_article_03.jpeg)",
-    "url(img/head_article_04.jpeg)",
-    "url(img/head_article_05.jpeg)"
-]; 
-const HEAD_ARTICLE_ICON = [
-    "img/example_profile_04.png",
-    "img/example_profile_05.png",
-    "img/example_profile_06.png",
-    "img/example_profile_03.png",
-    "img/example_profile_08.png"
-]; 
+let HEAD_ARTICLE = [];
+let HEAD_ARTICLE_TITLE = [];
+let HEAD_ARTICLE_DESCRIPTION = [];
+let HEAD_ARTICLE_NAME = [];
+let HEAD_ARTICLE_ICON = [];
 
-const SIDEBAR_ICON = [
-    "img/example_profile_01.png",
-    "img/example_profile_02.png",
-    "img/example_profile_03.png",
-    "img/example_profile_04.png",
-    "img/example_profile_05.png",
-    "img/example_profile_06.png",
-    "img/example_profile_07.png",
-    "img/example_profile_08.png"
-];
-const SIDEBAR_NAME = [
-    "r/AmazonStuff",
-    "r/UnictMember",
-    "r/OpenAI",
-    "r/DBZ",
-    "r/NetflixSeries",
-    "r/TwitterSubs",
-    "r/MeTube",
-    "r/Grifone"
-];
-const SIDEBAR_MEMBERS = [
-    "100.000 members",
-    "500 members",
-    "100.000 members",
-    "800 members",
-    "100.000 members",
-    "25.000 members",
-    "75.000 members",
-    "12.000 members"
-];
+let SIDEBAR_ICON = [];
+let SIDEBAR_NAME = [];
+let SIDEBAR_MEMBERS = [];
 
 function onClick(){
     let button_previous = document.querySelector('#previous-head');
     let button_next = document.querySelector('#next-head');
     
-    let item1 = document.querySelector('#item1');
-    let title1 = document.querySelector('#item1 .overlay .title');
-    let description1 = document.querySelector('#item1 .overlay .description');
-    let icon1 = document.querySelector('#item1 .overlay .community img');
-    let group1 = document.querySelector('#item1 .overlay .community .text .name');
-    
-    let item2 = document.querySelector('#item2');
-    let title2 = document.querySelector('#item2 .overlay .title');
-    let description2 = document.querySelector('#item2 .overlay .description');
-    let icon2 = document.querySelector('#item2 .overlay .community img');
-    let group2 = document.querySelector('#item2 .overlay .community .text .name');
-    
-    let item3 = document.querySelector('#item3');
-    let title3 = document.querySelector('#item3 .overlay .title');
-    let description3 = document.querySelector('#item3 .overlay .description');
-    let icon3 = document.querySelector('#item3 .overlay .community img');
-    let group3 = document.querySelector('#item3 .overlay .community .text .name');
-    
-    let item4 = document.querySelector('#item4');
-    let title4 = document.querySelector('#item4 .overlay .title');
-    let description4 = document.querySelector('#item4 .overlay .description');
-    let icon4 = document.querySelector('#item4 .overlay .community img');
-    let group4 = document.querySelector('#item4 .overlay .community .text .name');
+    let items = document.querySelectorAll('#head .item');
 
     if(button_previous.classList.contains('hidden')){
         
         button_previous.classList.remove('hidden');
         button_next.classList.add('hidden');
-        
-        item1.style.backgroundImage = HEAD_ARTICLE[1];
-        title1.textContent = title2.textContent;
-        description1.textContent = description2.textContent;
-        icon1.src = HEAD_ARTICLE_ICON[1];
-        group1.textContent = group2.textContent;
 
-        item2.style.backgroundImage = HEAD_ARTICLE[2];
-        title2.textContent = title3.textContent;
-        description2.textContent = description3.textContent;
-        icon2.src = HEAD_ARTICLE_ICON[2];
-        group2.textContent = group3.textContent;
-
-        item3.style.backgroundImage = HEAD_ARTICLE[3];
-        title3.textContent = title4.textContent;
-        description3.textContent = description4.textContent;
-        icon3.src = HEAD_ARTICLE_ICON[3];
-        group3.textContent = group4.textContent;
-
-        item4.style.backgroundImage = HEAD_ARTICLE[4];
-        title4.textContent = "Griffin";
-        description4.textContent = 'Griffin cancelled';
-        icon4.src = HEAD_ARTICLE_ICON[4];
-        group4.textContent = 'r/Grifone';
+        for(let item of items){
+            let index = parseInt(item.dataset.index);
+            item.style.backgroundImage = HEAD_ARTICLE[index];
+            item.querySelector('.title').textContent = HEAD_ARTICLE_TITLE[index];
+            item.querySelector('.description').textContent = HEAD_ARTICLE_DESCRIPTION[index];
+            item.querySelector('.name').textContent = HEAD_ARTICLE_NAME[index];
+            item.querySelector('img').src = HEAD_ARTICLE_ICON[index];
+        }
     }else{        
         button_previous.classList.add('hidden');
         button_next.classList.remove('hidden');
 
-        item4.style.backgroundImage = HEAD_ARTICLE[3];
-        title4.textContent = title3.textContent;
-        description4.textContent = description3.textContent;
-        icon4.src = HEAD_ARTICLE_ICON[3];
-        group4.textContent = group3.textContent;
-
-        item3.style.backgroundImage = HEAD_ARTICLE[2];
-        title3.textContent = title2.textContent;
-        description3.textContent = description2.textContent;
-        icon3.src = HEAD_ARTICLE_ICON[2];
-        group3.textContent = group2.textContent;
-
-        item2.style.backgroundImage = HEAD_ARTICLE[1];
-        title2.textContent = title1.textContent;
-        description2.textContent = description1.textContent;
-        icon2.src = HEAD_ARTICLE_ICON[1];
-        group2.textContent = group1.textContent;
-
-        item1.style.backgroundImage = HEAD_ARTICLE[0];
-        title1.textContent = "Akira Toriyama Dies";
-        description1.textContent = 'Dragon Ball creator dies...';
-        icon1.src = HEAD_ARTICLE_ICON[0];
-        group1.textContent = 'r/AkiraToryamaMemories';
+        for(let item of items){
+            let index = parseInt(item.dataset.index) - 1;
+            item.style.backgroundImage = HEAD_ARTICLE[index];
+            item.querySelector('.title').textContent = HEAD_ARTICLE_TITLE[index];
+            item.querySelector('.description').textContent = HEAD_ARTICLE_DESCRIPTION[index];
+            item.querySelector('.name').textContent = HEAD_ARTICLE_NAME[index];
+            item.querySelector('img').src = HEAD_ARTICLE_ICON[index];
+        }
     }
 
 }
@@ -158,11 +72,17 @@ function checkScroll() {
     const windowHeight = window.innerHeight;
     const bodyHeight = document.body.offsetHeight;
 
-    if(scrollTop <  235){
-        sidebar.style.marginTop = 15;        
-    }
-    if(scrollTop >= 235){
-        sidebar.style.marginTop = scrollTop-220;
+    if(sidebar.dataset.position === "1" ){
+        sidebar.dataset.position === "0";
+        if(scrollTop <  235){
+            sidebar.style.marginTop = 15 + 'px';
+            sidebar.classList.remove('sticky');
+        }
+    }else{
+        sidebar.dataset.position === "1";
+        if(scrollTop >= 235){
+            sidebar.classList.add('sticky');
+        }
     }
 
     // Se l'utente ha raggiunto il fondo della pagina
@@ -183,7 +103,7 @@ function onCLickMore(event){
     sidebarList.innerHTML = '';
 
     if(t.dataset.mode === 'more'){
-        document.querySelector('#sidebar').style.height = '600px';
+        document.querySelector('#sidebar').style.height = '500px';
         t.dataset.mode = 'less';
         div.textContent = 'See less';
 
@@ -296,4 +216,36 @@ recent.addEventListener('click', recentClick);
 
 let topics = document.querySelector('[data-navtype = topics]');
 let resources = document.querySelector('[data-navtype = resources]');
+
+function onError(error){
+    console.log('Error: ' + error);
+}
+
+function onResponse(response){
+    return response.json();
+}
+
+function onJson(json){
+    js_object = json;
+    let heads = json.head;
+    let sidebars = json.sidebar;
+
+    for(let head of heads){
+        HEAD_ARTICLE.push(head.article);
+        HEAD_ARTICLE_TITLE.push(head.title);
+        HEAD_ARTICLE_DESCRIPTION.push(head.description);
+        HEAD_ARTICLE_NAME.push(head.name);
+        HEAD_ARTICLE_ICON.push(head.icon);
+    }
+
+    for(let sidebar of sidebars){
+        SIDEBAR_ICON.push(sidebar.url);
+        SIDEBAR_NAME.push(sidebar.name);
+        SIDEBAR_MEMBERS.push(sidebar.members);
+    }
+}
+
+fetch('mhw3.json')
+    .then(onResponse, onError)
+    .then(onJson)
 

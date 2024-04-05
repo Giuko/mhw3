@@ -1,0 +1,81 @@
+{
+    "head":[
+        {
+            "article": "url(img/head_article_01.jpeg)",
+            "icon": "img/example_profile_04.png",
+            "title": "Akira Toriyama dies",
+            "description" : "Dragon ball creator dies...",
+            "name": "r/AkiraToriyamaMemories"
+        },
+        {
+            "article": "url(img/head_article_02.jpeg)",
+            "icon": "img/example_profile_05.png",
+            "title": "Netflix",
+            "description" : "Netflix new series",
+            "name": "r/NetflixSeries"
+        },
+        {
+            "article": "url(img/head_article_03.jpeg)",
+            "icon": "img/example_profile_06.png",
+            "title": "Twitter",
+            "description" : "Twitter new CEO Elon Musk...",
+            "name": "r/TwitterSubs"
+        },
+        {
+            "article": "url(img/head_article_04.jpeg)",
+            "icon": "img/example_profile_03.png",
+            "title": "OpenAI controversial",
+            "description" : "Elon Musk vs Sam Altman",
+            "name": "r/OpenAI"
+        },
+        {
+            "article": "url(img/head_article_05.jpeg)",
+            "icon": "img/example_profile_08.png",
+            "title": "Griffin",
+            "description" : "Griffin cancelled",
+            "name": "r/Grifone"
+        }
+    ],
+    "sidebar": [
+        {
+            "url": "img/example_profile_01.png",
+            "name": "r/AmazonStuff",
+            "members": "100.000 members"
+        },
+        {
+            "url": "img/example_profile_02.png",
+            "name": "r/UnictMembers",
+            "members": "500 members"
+        },
+        {
+            "url": "img/example_profile_03.png",
+            "name": "r/OpenAI",
+            "members": "100.000 members"
+        },
+        {
+            "url": "img/example_profile_04.png",
+            "name": "r/DBZ",
+            "members": "800 members"
+        },
+        {
+            "url": "img/example_profile_05.png",
+            "name": "r/NetflixSeries",
+            "members": "100.000 members"
+        },
+        {
+            "url": "img/example_profile_06.png",
+            "name": "r/TwitterSubs",
+            "members": "25.000 members"
+        },
+        {
+            "url": "img/example_profile_07.png",
+            "name": "r/MeTube",
+            "members": "75.000 members"
+        },
+        {
+            "url": "img/example_profile_08.png",
+            "name": "r/Grifone",
+            "members": "12.000 members"
+        }
+    ]
+}
