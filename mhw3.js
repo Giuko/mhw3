@@ -189,6 +189,10 @@ next_head.addEventListener("click", onClick);
 let more = document.querySelector('#more');
 more.addEventListener("click", onCLickMore)
 
+
+const searchbar = document.querySelector('#searchbar');
+searchbar.addEventListener("click", onClickSearch)
+
 window.addEventListener("scroll", checkScroll);
 
 function recentClick(e){
