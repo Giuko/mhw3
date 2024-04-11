@@ -191,7 +191,7 @@ more.addEventListener("click", onCLickMore)
 
 
 const searchbar = document.querySelector('#searchbar');
-searchbar.addEventListener("click", onClickSearch)
+// searchbar.addEventListener("keyup", onEnterSearch)
 
 window.addEventListener("scroll", checkScroll);
 
@@ -231,16 +231,7 @@ function onResponse(response){
 
 function onJson(json){
     js_object = json;
-    let heads = json.head;
     let sidebars = json.sidebar;
-
-    for(let head of heads){
-        HEAD_ARTICLE.push(head.article);
-        HEAD_ARTICLE_TITLE.push(head.title);
-        HEAD_ARTICLE_DESCRIPTION.push(head.description);
-        HEAD_ARTICLE_NAME.push(head.name);
-        HEAD_ARTICLE_ICON.push(head.icon);
-    }
 
     for(let sidebar of sidebars){
         SIDEBAR_ICON.push(sidebar.url);
@@ -253,3 +244,15 @@ fetch('mhw3.json')
     .then(onResponse, onError)
     .then(onJson)
 
+function firstHeadLoad(){
+    let items = document.querySelectorAll('#head .item');
+    for(let item of items){
+        let index = parseInt(item.dataset.index) - 1;
+        item.style.backgroundImage = HEAD_ARTICLE[index];
+        item.querySelector('.title').textContent = HEAD_ARTICLE_TITLE[index];
+        item.querySelector('.description').textContent = HEAD_ARTICLE_DESCRIPTION[index];
+        item.querySelector('.name').textContent = HEAD_ARTICLE_NAME[index];
+        item.querySelector('img').src = HEAD_ARTICLE_ICON[index];
+    }
+    
+}

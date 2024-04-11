@@ -1,41 +1,4 @@
 {
-    "head":[
-        {
-            "article": "url(img/head_article_01.jpeg)",
-            "icon": "img/example_profile_04.png",
-            "title": "Akira Toriyama dies",
-            "description" : "Dragon ball creator dies...",
-            "name": "r/AkiraToriyamaMemories"
-        },
-        {
-            "article": "url(img/head_article_02.jpeg)",
-            "icon": "img/example_profile_05.png",
-            "title": "Netflix",
-            "description" : "Netflix new series",
-            "name": "r/NetflixSeries"
-        },
-        {
-            "article": "url(img/head_article_03.jpeg)",
-            "icon": "img/example_profile_06.png",
-            "title": "Twitter",
-            "description" : "Twitter new CEO Elon Musk...",
-            "name": "r/TwitterSubs"
-        },
-        {
-            "article": "url(img/head_article_04.jpeg)",
-            "icon": "img/example_profile_03.png",
-            "title": "OpenAI controversial",
-            "description" : "Elon Musk vs Sam Altman",
-            "name": "r/OpenAI"
-        },
-        {
-            "article": "url(img/head_article_05.jpeg)",
-            "icon": "img/example_profile_08.png",
-            "title": "Griffin",
-            "description" : "Griffin cancelled",
-            "name": "r/Grifone"
-        }
-    ],
     "sidebar": [
         {
             "url": "img/example_profile_01.png",

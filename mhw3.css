@@ -313,20 +313,7 @@ nav{
 }
 
 
-#item1{
-    background-image: url(img/head_article_01.jpeg);
-    background-size: cover;
-}
-#item2{
-    background-image: url(img/head_article_02.jpeg);
-    background-size: cover;
-}
-#item3{
-    background-image: url(img/head_article_03.jpeg);
-    background-size: cover;
-}
-#item4{
-    background-image: url(img/head_article_04.jpeg);
+#head .item{
     background-size: cover;
 }
 #next-head, #previous-head{
