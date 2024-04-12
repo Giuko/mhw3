@@ -42,7 +42,10 @@ fetch('https://www.reddit.com/api/v1/access_token', {
     },
     body: `grant_type=password&username=${username}&password=${password}`
 }
-).then(onTokenResponse, onFailure).then(onTokenJson).then(e => {HeadLoading()});
+).then(onTokenResponse, onFailure).then(onTokenJson).then(e => {
+    HeadLoading();
+    loadSubreddit();
+});
 
 /*                     TOKEN                     */
 /*************************************************/
@@ -51,14 +54,21 @@ fetch('https://www.reddit.com/api/v1/access_token', {
 /*                      HEAD                     */
 
 function onIconJson(json){
-    return json.data.icon_img;
+    let ico = json.data.community_icon;
+    let index = ico.indexOf('.png');
+    let ret = ico.substring(0, index+4);
+    if(ret === ""){
+        ret = json.data.icon_img;
+    }
+    
+    return ret;
 }
 function useIcon(icon){
     return icon;
 }
 function getIcon(subreddit){
     let url
-    let icon = fetch(`https://www.reddit.com/r/${subreddit}/about.json`).then(onResponse, onFailure).then(onIconJson).then();
+    let icon = fetch(`https://www.reddit.com/r/${subreddit}/about.json`).then(onResponse, onFailure).then(onIconJson).then();   //Con questa API ottengo le icone (non ho bisogno di autentificazione) 
     return icon;
 }
 
@@ -92,11 +102,13 @@ function onHeadJson(json){
         if(text.length >= 33){
             text = text.substring(0, 30) + "...";
         }
-        iconPromises.push(getIcon(array[i].data.subreddit).then(iconUrl =>{HEAD_ARTICLE_ICON.push(iconUrl)}));  // Con questo riesco ad accedere al valore della promise, inoltre faccio il push della promise
-        HEAD_ARTICLE.push("url("+thumbnail+")");
-        HEAD_ARTICLE_DESCRIPTION.push(text);
-        HEAD_ARTICLE_NAME.push(subreddit);
-        HEAD_ARTICLE_TITLE.push(title);
+        iconPromises.push(getIcon(array[i].data.subreddit).then(iconUrl =>{
+            HEAD_ARTICLE_ICON.push(iconUrl);
+            HEAD_ARTICLE.push("url("+thumbnail+")");
+            HEAD_ARTICLE_DESCRIPTION.push(text);
+            HEAD_ARTICLE_NAME.push(subreddit);
+            HEAD_ARTICLE_TITLE.push(title);
+        }));  // Con questo riesco ad accedere al valore della promise, inoltre faccio il push della promise
     }
     //In questo modo attendo tutte promise (ovvero le getIcon) e poi posso usarle senza problemi
     Promise.all(iconPromises).then(() => {
@@ -106,7 +118,7 @@ function onHeadJson(json){
 
 const today = new Date();
 const formattedDate = today.toISOString().slice(0, 10);
-const url_head = `https://oauth.reddit.com/best.json?limit=100`
+const url_head = `https://oauth.reddit.com/best.json?limit=100`;
 function HeadLoading(){
     fetch(url_head, {
         method: 'GET',
@@ -118,4 +130,73 @@ function HeadLoading(){
 
 
 /*                      HEAD                     */
+/*************************************************/
+
+/*************************************************/
+
+/*                 SUBREDDIT                     */
+
+
+
+function onSubredditInfoJson(json){
+    
+    let ico = json.data.community_icon;
+    let index = ico.indexOf('.png?');
+    let ret = "";
+    if(index > 0){
+        ret = ico.substring(0, index+4);
+    }
+    if(ret === ""){
+        index = ico.indexOf('.jpg?');
+        if(index > 0){
+            ret = ico.substring(0, index+4);
+        }
+    }
+    if(ret === ""){
+        ret = json.data.icon_img;
+    }
+
+    
+    SUBREDDIT_ICON.push(ret);    
+    SUBREDDIT_NAME.push(json.data.display_name);
+    SUBREDDIT_MEMBERS.push(json.data.subscribers.toLocaleString('it-IT') + " members");
+}
+
+function onSubredditJson(json){
+    console.log(json);
+}
+
+function onBestJson(json){
+    let visited = [];
+    for(let i = 0; i < json.data.dist; i++){
+        let name = json.data.children[i].data.subreddit_name_prefixed;
+        if(!visited.includes(name)){
+            visited.push(name);
+        }
+    }
+    let promise = [];
+    for(let i = 0; i < visited.length; i++){
+        promise.push(fetch(`https://www.reddit.com/${visited[i]}/about.json`).then(onResponse, onFailure).then(onSubredditInfoJson));
+    }         
+    Promise.all(promise).then(() => {
+        firstSidebarLoad();
+    });   
+}
+
+
+function loadSubreddit(){
+    SUBREDDIT_ICON = [];
+    SUBREDDIT_NAME = [];
+    SUBREDDIT_MEMBERS = [];
+    let subToLoad = 1;
+    let iconPromises = [];
+    
+    const url = `https://oauth.reddit.com/best.json`
+    fetch(url, {
+            method: 'GET'
+        }
+    ).then(onResponse, onFailure).then(onBestJson);    
+}
+
+/*                 SUBREDDIT                     */
 /*************************************************/

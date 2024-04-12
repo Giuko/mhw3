@@ -3,7 +3,6 @@ let headContent = Array.from(document.querySelectorAll('#head .item'));
 const sidebarList = document.querySelector('#popular-communities-list');
 const sidebar = document.querySelector('#sidebar');
 
-let recentContent = Array.from(document.querySelectorAll('.subnav .recent'));
 let js_object;
 
 let HEAD_ARTICLE = [];
@@ -12,9 +11,9 @@ let HEAD_ARTICLE_DESCRIPTION = [];
 let HEAD_ARTICLE_NAME = [];
 let HEAD_ARTICLE_ICON = [];
 
-let SIDEBAR_ICON = [];
-let SIDEBAR_NAME = [];
-let SIDEBAR_MEMBERS = [];
+let SUBREDDIT_ICON = [];
+let SUBREDDIT_NAME = [];
+let SUBREDDIT_MEMBERS = [];
 
 function onClick(){
     let button_previous = document.querySelector('#previous-head');
@@ -90,9 +89,10 @@ function checkScroll() {
         loadMoreContent();
     }
 }
-
+let e;
 function onCLickMore(event){
     let t = event.currentTarget;
+    e=t;
     let div = document.createElement('div');
 
     div.classList.add('text');
@@ -107,7 +107,7 @@ function onCLickMore(event){
         t.dataset.mode = 'less';
         div.textContent = 'See less';
 
-        for(let i = 0; i < SIDEBAR_ICON.length; i++){
+        for(let i = 0; i < SUBREDDIT_ICON.length; i++){
             let item = document.createElement('div');
             item.classList.add('item');
             let container = document.createElement('div');
@@ -119,16 +119,16 @@ function onCLickMore(event){
             let image = document.createElement('div');
             image.classList.add('image');
             let img = document.createElement('img');
-            img.src = SIDEBAR_ICON[i];
+            img.src = SUBREDDIT_ICON[i];
             let text = document.createElement('div');
             text.classList.add('text');
             text.classList.add('flex');
             let name = document.createElement('div');
             name.classList.add('name');
-            name.textContent = SIDEBAR_NAME[i];
+            name.textContent = SUBREDDIT_NAME[i];
             let members = document.createElement('div');
             members.classList.add('members');
-            members.textContent = SIDEBAR_MEMBERS[i];
+            members.textContent = SUBREDDIT_MEMBERS[i];
             text.appendChild(name);
             text.appendChild(members);
             image.appendChild(img);
@@ -157,16 +157,16 @@ function onCLickMore(event){
             let image = document.createElement('div');
             image.classList.add('image');
             let img = document.createElement('img');
-            img.src = SIDEBAR_ICON[i];
+            img.src = SUBREDDIT_ICON[i];
             let text = document.createElement('div');
             text.classList.add('text');
             text.classList.add('flex');
             let name = document.createElement('div');
             name.classList.add('name');
-            name.textContent = SIDEBAR_NAME[i];
+            name.textContent = SUBREDDIT_NAME[i];
             let members = document.createElement('div');
             members.classList.add('members');
-            members.textContent = SIDEBAR_MEMBERS[i];
+            members.textContent = SUBREDDIT_MEMBERS[i];
             text.appendChild(name);
             text.appendChild(members);
             image.appendChild(img);
@@ -195,8 +195,13 @@ const searchbar = document.querySelector('#searchbar');
 
 window.addEventListener("scroll", checkScroll);
 
+function test(){
+    console.log(Array.from(document.querySelectorAll(".main-container .subnav [data-recent = '1']")));
+}
+
 function recentClick(e){
     let r = e.currentTarget;
+    let recentContent = Array.from(document.querySelectorAll(".main-container .subnav [data-recent = '1'] .recent"));
     let door = document.querySelector('[data-navtype = recent] .door');
     if(parseInt(r.dataset.click) === 0){
         r.dataset.click = 1;
@@ -221,29 +226,6 @@ recent.addEventListener('click', recentClick);
 let topics = document.querySelector('[data-navtype = topics]');
 let resources = document.querySelector('[data-navtype = resources]');
 
-function onError(error){
-    console.log('Error: ' + error);
-}
-
-function onResponse(response){
-    return response.json();
-}
-
-function onJson(json){
-    js_object = json;
-    let sidebars = json.sidebar;
-
-    for(let sidebar of sidebars){
-        SIDEBAR_ICON.push(sidebar.url);
-        SIDEBAR_NAME.push(sidebar.name);
-        SIDEBAR_MEMBERS.push(sidebar.members);
-    }
-}
-
-fetch('mhw3.json')
-    .then(onResponse, onError)
-    .then(onJson)
-
 function firstHeadLoad(){
     let items = document.querySelectorAll('#head .item');
     for(let item of items){
@@ -253,6 +235,73 @@ function firstHeadLoad(){
         item.querySelector('.description').textContent = HEAD_ARTICLE_DESCRIPTION[index];
         item.querySelector('.name').textContent = HEAD_ARTICLE_NAME[index];
         item.querySelector('img').src = HEAD_ARTICLE_ICON[index];
+    }   
+}
+
+function firstSidebarLoad(){
+    sidebarList.innerHTML = '';
+
+    document.querySelector('#sidebar').style.height = '394px';
+
+    for(let i = 0; i < 4; i++){
+        let item = document.createElement('div');
+        item.classList.add('item');
+        let container = document.createElement('div');
+        container.classList.add('container');
+        container.classList.add('flex');
+        let content = document.createElement('div');
+        content.classList.add('content');
+        content.classList.add('flex');
+        let image = document.createElement('div');
+        image.classList.add('image');
+        let img = document.createElement('img');
+        img.src = SUBREDDIT_ICON[i];
+        let text = document.createElement('div');
+        text.classList.add('text');
+        text.classList.add('flex');
+        let name = document.createElement('div');
+        name.classList.add('name');
+        name.textContent = SUBREDDIT_NAME[i];
+        let members = document.createElement('div');
+        members.classList.add('members');
+        members.textContent = SUBREDDIT_MEMBERS[i];
+        text.appendChild(name);
+        text.appendChild(members);
+        image.appendChild(img);
+        content.appendChild(image);
+        content.appendChild(text);
+        container.appendChild(content);
+        item.appendChild(container);
+        sidebarList.appendChild(item);
     }
-    
+    recentLoad();
+}
+
+function recentLoad(){
+    let recent = Array.from(document.querySelectorAll(".main-container .subnav [data-recent = '1']"));
+    for(let i = 0; i < 3; i++){
+        let externDiv = document.createElement('div');
+        externDiv.classList.add('hidden');
+        externDiv.classList.add('align-center');
+        externDiv.classList.add('flex-start');
+        externDiv.classList.add('recent');
+
+        let divImg = document.createElement('div');
+        divImg.classList.add('image');
+        let img = document.createElement('img');
+        img.src = SUBREDDIT_ICON[i];
+        divImg.appendChild(img);
+
+        let divText = document.createElement('div');
+        divText.classList.add('text');
+        divText.classList.add('flex');
+        divText.classList.add('align-center');
+        divText.classList.add('flex-start');
+        divText.textContent = SUBREDDIT_NAME[i];
+
+        externDiv.appendChild(divImg);
+        externDiv.appendChild(divText);
+
+        recent[i].appendChild(externDiv);
+    }
 }
