@@ -252,6 +252,8 @@ nav{
     height: 888px;
     align-items: center;
     border-right: 1px solid #3c4345;
+    background-color: var(--color-backgroud);
+
 }
     
 .subnav{
@@ -426,6 +428,7 @@ nav{
     flex-wrap: wrap;
     padding-bottom: 5px;
 }
+
 #feed .item .insert:hover{
     background-color: #131F23;
 }
@@ -471,12 +474,29 @@ nav{
 
 #feed .item .insert .text{
     color: rgb(184, 197, 201);
+    display: flex;
+    word-wrap: break-word;
+    flex-wrap: wrap;
 
     font-size: 14px;
     line-height: 20px;
     
     padding-left: 16px;
     padding-right: 16px;
+}
+
+@media (max-width: 1000px) {
+    #feed .item .insert{
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        padding-bottom: 5px;
+    }
+    #feed .item .insert img{
+        max-width: 100%;
+    }
 }
 
 #main-content{
@@ -627,10 +647,6 @@ nav{
 }
 
 @media (max-width: 1199px) {
-    .main-container nav{
-        display: none;
-    }
-
     .main-container .container{
         margin-left: 0px;
     }
@@ -679,19 +695,4 @@ nav{
 
 .no-scroll{
     overflow: hidden;
-}
-
-.modal-view{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 3;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

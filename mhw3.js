@@ -3,6 +3,7 @@ let headContent = Array.from(document.querySelectorAll('#head .item'));
 const sidebarList = document.querySelector('#popular-communities-list');
 const sidebar = document.querySelector('#sidebar');
 
+
 let js_object;
 
 let HEAD_ARTICLE = [];
@@ -15,9 +16,67 @@ let SUBREDDIT_ICON = [];
 let SUBREDDIT_NAME = [];
 let SUBREDDIT_MEMBERS = [];
 
+
+
+// Funzione per controllare se l'utente ha raggiunto il fondo della pagina
+function checkScroll() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+
+    if(sidebar.dataset.position === "1" ){
+        sidebar.dataset.position === "0";
+        if(scrollTop <  235){
+            sidebar.style.marginTop = 15 + 'px';
+            sidebar.classList.remove('sticky');
+        }
+    }else{
+        sidebar.dataset.position === "1";
+        if(scrollTop >= 235){
+            sidebar.classList.add('sticky');
+        }
+    }
+
+    // Se l'utente ha raggiunto il fondo della pagina
+    if (scrollTop + windowHeight >= bodyHeight) {
+        loadMoreContent();
+    }
+}
+
+// Funzione che gestisce la navbar
+function resize(){
+    let width = window.innerWidth;
+
+    if(width < 1200){
+        let nav = document.querySelector('.main-container nav');
+        nav.classList.add('hidden');
+        nav.classList.remove('flex');
+    }else{
+        let nav = document.querySelector('.main-container nav');
+        nav.classList.add('flex');
+        nav.classList.remove('hidden');
+
+        let body = document.querySelector('body');
+        body.classList.remove('no-scroll');
+    }
+
+
+}
+
+if(window.innerWidth < 1200){
+    let nav = document.querySelector('.main-container nav');
+    
+    nav.classList.add('hidden');
+    nav.classList.remove('flex');
+}
+
+window.addEventListener("scroll", checkScroll);
+window.addEventListener('resize', resize)
+
+
 function onClick(){
     let button_previous = document.querySelector('#previous-head');
-    let button_next = document.querySelector('#next-head');
+    let button_next = (document.querySelector('#next-head'));
     
     let items = document.querySelectorAll('#head .item');
 
@@ -65,31 +124,6 @@ function loadMoreContent(){
         feedContent.push(item);
         feed.appendChild(item);
         loadContent(item, urlMoreContent);
-    }
-}
-
-// Funzione per controllare se l'utente ha raggiunto il fondo della pagina
-function checkScroll() {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const windowHeight = window.innerHeight;
-    const bodyHeight = document.body.offsetHeight;
-
-    if(sidebar.dataset.position === "1" ){
-        sidebar.dataset.position === "0";
-        if(scrollTop <  235){
-            sidebar.style.marginTop = 15 + 'px';
-            sidebar.classList.remove('sticky');
-        }
-    }else{
-        sidebar.dataset.position === "1";
-        if(scrollTop >= 235){
-            sidebar.classList.add('sticky');
-        }
-    }
-
-    // Se l'utente ha raggiunto il fondo della pagina
-    if (scrollTop + windowHeight >= bodyHeight) {
-        loadMoreContent();
     }
 }
 
@@ -186,7 +220,7 @@ function onCLickMore(event){
 let previous_head = document.querySelector('#previous-head');
 previous_head.addEventListener("click", onClick);
 
-let next_head = document.querySelector('#next-head');
+let next_head = (document.querySelector('#next-head'));
 next_head.addEventListener("click", onClick);
 
 let more = document.querySelector('#more');
@@ -205,11 +239,29 @@ function onEnterSearch(e){
 const searchbar = document.querySelector('#searchbar');
 searchbar.addEventListener("keyup", onEnterSearch)
 
-window.addEventListener("scroll", checkScroll);
 
-function test(){
-    console.log(Array.from(document.querySelectorAll(".main-container .subnav [data-recent = '1']")));
+function clickMenu(e){
+    let shown = e.target.dataset.click;
+    let nav = document.querySelector('.main-container nav');
+    let body = document.querySelector('body');
+    if(shown === '0'){ 
+        e.target.dataset.click = '1';
+        nav.classList.add('flex');
+        nav.classList.remove('hidden');
+        nav.style.zIndex=1;
+        body.classList.add('no-scroll');
+    }else{
+        e.target.dataset.click = '0';
+        nav.classList.add('hidden');
+        nav.classList.remove('flex');
+        body.classList.remove('no-scroll');
+    }
 }
+
+const navbar_menu = document.querySelector('#navbar-menu');
+navbar_menu.addEventListener('click', clickMenu);
+
+
 
 function recentClick(e){
     let r = e.currentTarget;
