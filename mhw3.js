@@ -476,12 +476,8 @@ function onSubredditInfoJson(json){
 
     
     SUBREDDIT_ICON.push(ret);    
-    SUBREDDIT_NAME.push(json.data.display_name);
+    SUBREDDIT_NAME.push('r/'+json.data.display_name);
     SUBREDDIT_MEMBERS.push(json.data.subscribers.toLocaleString('it-IT') + " members");
-}
-
-function onSubredditJson(json){
-    console.log(json);
 }
 
 function onBestJson(json){
@@ -521,90 +517,8 @@ function loadSubreddit(){
 
 /*************************************************/
 /*                      FEED                     */
-let i = 0;
-// function test(){
-//     const url = `https://oauth.reddit.com/new.json?limit=100`
-//     fetch(url, {
-//             method: 'GET'
-//         }
-//     ).then(onResponse, onFailure).then((json) => {
-//         let feed = document.querySelector('#feed');
-//         let feedContent = Array.from(document.querySelectorAll('#feed article'));
-//         feedContent[i].innerHTML = '';
-
-//         let externDiv = document.createElement('div');
-//         externDiv.classList.add('insert');
-//         externDiv.classList.add('flex');
-//         externDiv.classList.add('flex-column');
-//         let subred = document.createElement('div');
-//         subred.classList.add('subreddit');
-//         subred.classList.add('flex');
-//         subred.classList.add('align-center');
-//         let icon = document.createElement('div');
-//         icon.classList.add('icon');
-//         icon.classList.add('flex');
-//         icon.classList.add('flex-center');
-//         icon.classList.add('align-center');
-
-
-
-//         let img = document.createElement('img');
-//         let name = document.createElement('div');
-//         name.classList.add('name');
-
-//         let subreddit = json.data.children[i++].data.subreddit_name_prefixed;
-//         fetch(`https://www.reddit.com/${subreddit}/about.json`).then(onResponse, onFailure).then((json) => {
-//             let ico = json.data.community_icon;
-//             let index = ico.indexOf('.png?');
-//             let ret = "";
-//             if(index > 0){
-//                 ret = ico.substring(0, index+4);
-//             }
-//             if(ret === ""){
-//                 index = ico.indexOf('.jpg?');
-//                 if(index > 0){
-//                     ret = ico.substring(0, index+4);
-//                 }
-//             }
-//             if(ret === ""){
-//                 ret = json.data.icon_img;
-//             }
-
-            
-//             img.src = ret;    
-//             icon.appendChild(img);
-//             name.textContent = json.data.display_name
-//         });
-
-
-//         let text = document.createElement('div');
-//         text.classList.add('text');
-
-//         let title = document.createElement('div');
-//         title.classList.add('title');
-
-//         title.textContent = json.data.children[i].data.title;
-
-//         let content= json.data.children[i].data.selftext;
-//         if(content.length > 403){
-//             content = content.substring(0, 400) + "...";
-//         }
-//         text.textContent = content;
-
-//         subred.appendChild(icon);
-//         subred.appendChild(name);
-
-//         externDiv.appendChild(subred);
-//         externDiv.appendChild(title);
-//         externDiv.appendChild(text);
-
-//         feedContent[0].appendChild(externDiv);
-
-//     }); 
-
-// }
 function loadContent(article){
-    const index = article.dataset.index;
+    const index = article.dataset.index%100;
     const url = `https://oauth.reddit.com/new.json?limit=100`
     fetch(url, {
             method: 'GET'
@@ -655,7 +569,7 @@ function loadContent(article){
             
             img.src = ret;    
             icon.appendChild(img);
-            name.textContent = json.data.display_name
+            name.textContent = 'r/'+json.data.display_name
         });
 
 
@@ -687,7 +601,7 @@ function loadContent(article){
 }
 function firstLoadContent(){
     for(let i = 0; i < feedContent.length; i++){
-        loadContent(feedContent[i], i);
+        loadContent(feedContent[i]);
     }
 }
 
