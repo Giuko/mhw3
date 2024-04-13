@@ -179,7 +179,9 @@ header{
 }
 
 @media (max-width: 1199px) {
-    
+    header{
+        margin-left: 0px;
+    }
     header #login{
         margin-left: 0px;
     }
