@@ -50,6 +50,8 @@ function onClick(){
 
 }
 
+let urlMoreContent;
+
 function loadMoreContent(){
     let feed = document.querySelector('#feed');
     let docToLoad = 1;
@@ -62,7 +64,7 @@ function loadMoreContent(){
         item.appendChild(item_content);
         feedContent.push(item);
         feed.appendChild(item);
-        loadContent(item);
+        loadContent(item, urlMoreContent);
     }
 }
 
@@ -191,8 +193,17 @@ let more = document.querySelector('#more');
 more.addEventListener("click", onCLickMore)
 
 
+function onEnterSearch(e){
+    if(e.key === "Enter"){
+        let value = searchbar.value;
+        value = encodeURIComponent(value);
+        urlMoreContent = `https://www.reddit.com/search.json?q=${value}&limit=100`;
+        firstLoadContent();
+    }
+}
+
 const searchbar = document.querySelector('#searchbar');
-// searchbar.addEventListener("keyup", onEnterSearch)
+searchbar.addEventListener("keyup", onEnterSearch)
 
 window.addEventListener("scroll", checkScroll);
 
@@ -331,7 +342,6 @@ const application = 'My University website'
 let token;
 function onTokenJson(json){
     token = json.access_token;
-    console.log(token)
 }
 
 function onTokenResponse(response){
@@ -354,6 +364,7 @@ fetch('https://www.reddit.com/api/v1/access_token', {
 ).then(onTokenResponse, onFailure).then(onTokenJson).then(e => {
     HeadLoading();
     loadSubreddit();
+    urlMoreContent = `https://www.reddit.com/new.json?limit=100`;
     firstLoadContent();
 });
 
@@ -517,13 +528,14 @@ function loadSubreddit(){
 
 /*************************************************/
 /*                      FEED                     */
-function loadContent(article){
-    const index = article.dataset.index%100;
-    const url = `https://oauth.reddit.com/new.json?limit=100`
+let r;
+function loadContent(article, url){
+    let index = article.dataset.index;
     fetch(url, {
             method: 'GET'
         }
     ).then(onResponse, onFailure).then((json) => {
+        index = index % json.data.dist;
         let feed = document.querySelector('#feed');
         let feedContent = Array.from(document.querySelectorAll('#feed article'));
         article.innerHTML = '';
@@ -573,11 +585,21 @@ function loadContent(article){
         });
 
 
+        let title = document.createElement('div');
+        title.classList.add('title');
+
         let text = document.createElement('div');
         text.classList.add('text');
 
-        let title = document.createElement('div');
-        title.classList.add('title');
+        let divImg = document.createElement('div');
+        divImg.classList.add('flex');
+        divImg.classList.add('flex-center');
+        divImg.classList.add('align-center');
+
+        let imgArticle = document.createElement('img');
+        // imgArticle.src = json.data.children[index].data.thumbnail;
+        // imgArticle.width = json.data.children[index].data.thumbnail_width;
+        // imgArticle.height = json.data.children[index].data.thumbnail_height;
 
         title.textContent = json.data.children[index].data.title;
 
@@ -593,15 +615,63 @@ function loadContent(article){
         externDiv.appendChild(subred);
         externDiv.appendChild(title);
         externDiv.appendChild(text);
+        let thumb = json.data.children[index].data.thumbnail;
 
+
+        let indexStr = url.indexOf('.png');
+        let ret = "";
+        if(indexStr > 0){
+            ret = thumb.substring(0, indexStr+4);
+        }
+        if(ret === ""){
+            indexStr = thumb.indexOf('.jpg');
+            if(indexStr > 0){
+                ret = thumb.substring(0, indexStr+4);
+            }
+        }
+        if(ret === ""){
+            indexStr = thumb.indexOf('.jpeg');
+            if(indexStr > 0){
+                ret = thumb.substring(0, indexStr+4);
+            }
+        }
+        thumb = ret;
+        if(thumb !== ''){
+            let url = json.data.children[index].data.url;
+
+            indexStr = url.indexOf('.png');
+            ret = "";
+            if(indexStr > 0){
+                ret = url.substring(0, indexStr+4);
+            }
+            if(ret === ""){
+                indexStr = url.indexOf('.jpg');
+                if(indexStr > 0){
+                    ret = url.substring(0, indexStr+4);
+                }
+            }
+            if(ret === ""){
+                indexStr = url.indexOf('.jpeg');
+                if(indexStr > 0){
+                    ret = url.substring(0, indexStr+5);
+                }
+            }
+            if(ret === ''){
+                ret = thumb;
+            }
+            imgArticle.src = ret;
+            divImg.appendChild(imgArticle);
+            externDiv.appendChild(divImg); 
+        }
         article.appendChild(externDiv);
 
     }); 
 
 }
 function firstLoadContent(){
+    let url = urlMoreContent;
     for(let i = 0; i < feedContent.length; i++){
-        loadContent(feedContent[i]);
+        loadContent(feedContent[i], url);
     }
 }
 
