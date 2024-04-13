@@ -241,9 +241,7 @@ header{
 }
 
 @media (max-width: 440px) {
-    header #search #searchbar{
-        font-size: 0px;
-    }
+    
 }
 
 nav{
